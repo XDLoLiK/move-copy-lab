@@ -1,0 +1,104 @@
+#include "graphviz.hpp"
+
+const char* Graphviz_OUT_FILE_NAME = nullptr;
+FILE*       Graphviz_OUT_FILE      = nullptr;
+
+void Graphviz_SetFile(const char* name)
+{
+	Graphviz_OUT_FILE_NAME = name;
+}
+
+int Graphviz_Init()
+{
+	static bool is_init = false;
+	if (is_init) {
+		return 0;
+	}
+
+	Graphviz_OUT_FILE = fopen(Graphviz_OUT_FILE_NAME, "w");
+	if (!Graphviz_OUT_FILE) {
+		return 1;
+	}
+
+	fprintf(Graphviz_OUT_FILE, "digraph G {\n"
+		                       "node [shape=record];\n"
+		                       "fontname=\"Roboto Mono\"\n");
+	is_init = true;
+	return 0;
+}
+
+int Graphviz_Quit()
+{
+	if (!Graphviz_OUT_FILE) {
+		return 1;
+	}
+
+	fprintf(Graphviz_OUT_FILE, "}\n");
+
+	fclose(Graphviz_OUT_FILE);
+	Graphviz_OUT_FILE = nullptr;
+
+	std::string cmd_str = "dot " + std::string(Graphviz_OUT_FILE_NAME) + " -Tpng -o " + 
+	                               std::string(Graphviz_OUT_FILE_NAME) + ".png";
+	system(cmd_str.c_str());
+	return 0;
+}
+
+void Graphviz_StartFunction(Location_t location)
+{
+	static int cluster_count = 0;
+	cluster_count++;
+
+	fprintf(Graphviz_OUT_FILE, "subgraph cluster%d {\n"
+		                       "color=orange\n"
+		                       "label=\"%s:%d %s()\"\n",
+		                       cluster_count, location.file, location.line, location.func);
+}
+
+void Graphviz_EndFunction()
+{
+	fprintf(Graphviz_OUT_FILE, "}\n");
+}
+
+int Graphviz_CreateOperationNode(const DemoInt& first, const DemoInt& second, const DemoInt& result, 
+	                             const char* operation)
+{
+	static int operation_count = 0;
+	operation_count++;
+
+	fprintf(Graphviz_OUT_FILE, "op%d [color=blue, shape=circle, label=\"%s\"]\n",
+		    operation_count, operation);
+
+	Graphviz_CreateOrientedEdge(first,  ("op" + std::to_string(operation_count)).c_str(), "blue");
+	Graphviz_CreateOrientedEdge(second, ("op" + std::to_string(operation_count)).c_str(), "blue");
+	Graphviz_CreateOrientedEdge(("op" + std::to_string(operation_count)).c_str(), result, "blue");
+
+	return operation_count;
+}
+
+void Graphviz_CreateNode(const DemoInt* num, const char* color)
+{
+	fprintf(Graphviz_OUT_FILE, "%s [color=%s, label=\"{name=\'%s\'|value=%d|address=%p}\"]\n", 
+		    num->name(), color, num->name(), num->value(), num);
+}
+
+void Graphviz_CreateOrientedEdge(const DemoInt& from, const DemoInt& to, const char* color,
+	                             const char* label, const char* label_color)
+{
+	fprintf(Graphviz_OUT_FILE, "%s -> %s [color=%s, label=\"%s\", fontcolor=\"%s\"]\n",
+		    from.name(), to.name(), color, label, label_color);
+}
+
+void Graphviz_CreateOrientedEdge(const DemoInt& from, const char* to, const char* color,
+	                             const char* label, const char* label_color)
+{
+	fprintf(Graphviz_OUT_FILE, "%s -> %s [color=%s, label=\"%s\", fontcolor=\"%s\"]\n",
+		    from.name(), to, color, label, label_color);
+}
+
+void Graphviz_CreateOrientedEdge(const char* from, const DemoInt& to, const char* color,
+	                             const char* label, const char* label_color)
+{
+	fprintf(Graphviz_OUT_FILE, "%s -> %s [color=%s, label=\"%s\", fontcolor=\"%s\"]\n",
+		    from, to.name(), color, label, label_color);
+}

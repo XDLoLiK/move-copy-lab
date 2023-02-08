@@ -1,0 +1,47 @@
+digraph G {
+node [shape=record];
+fontname="Roboto Mono"
+subgraph cluster1 {
+color=orange
+label="main.cpp:46 main()"
+test_int_1 [color=darkgreen, label="{name='test_int_1'|value=5|address=0x7ffc326d7de0}"]
+test_int_2 [color=darkgreen, label="{name='test_int_2'|value=6|address=0x7ffc326d7df0}"]
+tmp0 [color=red, label="{name='tmp0'|value=6|address=0x7ffc326d7e10}"]
+test_int_2 -> tmp0 [color=red, label="COPY", fontcolor="red"]
+tmp1 [color=red, label="{name='tmp1'|value=5|address=0x7ffc326d7e00}"]
+test_int_1 -> tmp1 [color=red, label="COPY", fontcolor="red"]
+subgraph cluster2 {
+color=orange
+label="main.cpp:30 SwapInts()"
+tmp2 [color=red, label="{name='tmp2'|value=11|address=0x7ffc326d7d30}"]
+op1 [color=blue, shape=circle, label="+"]
+tmp1 -> op1 [color=blue, label="", fontcolor=""]
+tmp0 -> op1 [color=blue, label="", fontcolor=""]
+op1 -> tmp2 [color=blue, label="", fontcolor=""]
+tmp3 [color=red, label="{name='tmp3'|value=11|address=0x7ffc326d7d90}"]
+tmp2 -> tmp3 [color=darkgreen, label="MOVE", fontcolor="darkgreen"]
+tmp3 -> tmp1 [color=darkgreen, label="MOVE", fontcolor="darkgreen"]
+tmp4 [color=red, label="{name='tmp4'|value=-5|address=0x7ffc326d7d30}"]
+op2 [color=blue, shape=circle, label="-"]
+tmp0 -> op2 [color=blue, label="", fontcolor=""]
+tmp1 -> op2 [color=blue, label="", fontcolor=""]
+op2 -> tmp4 [color=blue, label="", fontcolor=""]
+tmp5 [color=red, label="{name='tmp5'|value=-5|address=0x7ffc326d7d80}"]
+tmp4 -> tmp5 [color=darkgreen, label="MOVE", fontcolor="darkgreen"]
+tmp6 [color=red, label="{name='tmp6'|value=5|address=0x7ffc326d7d90}"]
+tmp6 -> tmp0 [color=darkgreen, label="MOVE", fontcolor="darkgreen"]
+tmp7 [color=red, label="{name='tmp7'|value=6|address=0x7ffc326d7d30}"]
+op3 [color=blue, shape=circle, label="-"]
+tmp1 -> op3 [color=blue, label="", fontcolor=""]
+tmp0 -> op3 [color=blue, label="", fontcolor=""]
+op3 -> tmp7 [color=blue, label="", fontcolor=""]
+tmp8 [color=red, label="{name='tmp8'|value=6|address=0x7ffc326d7d90}"]
+tmp7 -> tmp8 [color=darkgreen, label="MOVE", fontcolor="darkgreen"]
+tmp8 -> tmp1 [color=darkgreen, label="MOVE", fontcolor="darkgreen"]
+}
+tmp9 [color=red, label="{name='tmp9'|value=6|address=0x7ffc326d7e40}"]
+tmp1 -> tmp9 [color=red, label="COPY", fontcolor="red"]
+tmp10 [color=red, label="{name='tmp10'|value=5|address=0x7ffc326d7e50}"]
+tmp0 -> tmp10 [color=red, label="COPY", fontcolor="red"]
+}
+}
