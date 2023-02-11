@@ -2,6 +2,7 @@
 
 const char* Graphviz_OUT_FILE_NAME = nullptr;
 FILE*       Graphviz_OUT_FILE      = nullptr;
+int         Graphviz_COPY_COUNT    = 0;
 
 void Graphviz_SetFile(const char* name)
 {
@@ -33,8 +34,13 @@ int Graphviz_Quit()
 		return 1;
 	}
 
-	fprintf(Graphviz_OUT_FILE, "}\n");
+	fprintf(Graphviz_OUT_FILE, "subgraph caption {\n"
+		                       "label=\"...\"\n"
+		                       "COPIES [label=\"COPY_COUNT=%d\"]\n"
+		                       "}\n",
+		                       Graphviz_GetCopyCount());
 
+	fprintf(Graphviz_OUT_FILE, "}\n");
 	fclose(Graphviz_OUT_FILE);
 	Graphviz_OUT_FILE = nullptr;
 
@@ -42,6 +48,16 @@ int Graphviz_Quit()
 	                               std::string(Graphviz_OUT_FILE_NAME) + ".png";
 	system(cmd_str.c_str());
 	return 0;
+}
+
+int Graphviz_GetCopyCount()
+{
+	return Graphviz_COPY_COUNT;
+}
+
+void Graphviz_IncreaseCopyCount()
+{
+	Graphviz_COPY_COUNT++;
 }
 
 void Graphviz_StartFunction(Location_t location)
@@ -58,6 +74,20 @@ void Graphviz_StartFunction(Location_t location)
 void Graphviz_EndFunction()
 {
 	fprintf(Graphviz_OUT_FILE, "}\n");
+}
+
+int Graphviz_CreateUnaryOperationNode(const DemoInt& operand, const DemoInt& result, const char* operation)
+{
+	static int u_operation_count = 0;
+	u_operation_count++;
+
+	fprintf(Graphviz_OUT_FILE, "u_op%d [color=blue, shape=circle, label=\"%s\"]\n",
+		    u_operation_count, operation);
+
+	Graphviz_CreateOrientedEdge(operand,  ("u_op" + std::to_string(u_operation_count)).c_str(), "blue");
+	Graphviz_CreateOrientedEdge(("u_op" + std::to_string(u_operation_count)).c_str(), result, "blue");
+
+	return u_operation_count;
 }
 
 int Graphviz_CreateOperationNode(const DemoInt& first, const DemoInt& second, const DemoInt& result, 

@@ -23,19 +23,18 @@ void BubbleSort(DemoInt* array, int left, int cur_pos)
 	BubbleSort(array, left, cur_pos + 1);
 }
 
-std::pair<DemoInt, DemoInt> SwapInts(DemoInt int1, DemoInt int2);
+void SwapInts(DemoInt& int1, DemoInt& int2);
 
-std::pair<DemoInt, DemoInt> SwapInts(DemoInt int1, DemoInt int2)
+void SwapInts(DemoInt& int1, DemoInt& int2)
 {
 	Graphviz_StartFunction(__LOCATION__);
 
-	int1 = int1 + int2;
-	int2 = -(int2 - int1);
-	int1 = int1 - int2;
+	int1 += int2;
+	int2 -= int1;
+	int2 = -int2;
+	int1 -= int2;
 
 	Graphviz_EndFunction();
-
-	return {int1, int2};
 }
 
 int main()
@@ -47,7 +46,7 @@ int main()
 
 	DEMO_INT(test_int_1, 5);
 	DEMO_INT(test_int_2, 6);
-	std::pair<DemoInt, DemoInt> swapped = SwapInts(test_int_1, test_int_2);
+	SwapInts(test_int_1, test_int_2);
 
 	Graphviz_EndFunction();
 

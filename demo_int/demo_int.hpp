@@ -6,6 +6,9 @@
 #include <cstring>
 #include <string>
 
+#define ALLOW_COPY_SEMANTICS 1
+#define ALLOW_MOVE_SEMANTICS 1
+
 #define DEMO_INT(name, value) DemoInt name(value, #name)
 #define NEW_DEMO_INT(name, value) DemoInt* name = new DemoInt(value, #name)
 
@@ -17,12 +20,17 @@ public:
 	DemoInt(int val = 0, const char* name = nullptr);
 	~DemoInt();
 
+#ifdef ALLOW_COPY_SEMANTICS
 	/* Copying */
 	DemoInt(const DemoInt& other, const char* name = nullptr);
 	DemoInt& operator=(const DemoInt& other);
+#endif /* ALLOW_COPY_SEMANTICS */
 
+#ifdef ALLOW_MOVE_SEMANTICS
+	/* Moving */
 	DemoInt(DemoInt&& other, const char* name = nullptr);
 	DemoInt& operator=(DemoInt&& other);
+#endif /* ALLOW_MOVE_SEMANTICS */
 
 	/* Arithmetics */
 	DemoInt& operator+= (const DemoInt& other);

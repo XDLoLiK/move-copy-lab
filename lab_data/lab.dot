@@ -1,0 +1,25 @@
+digraph G {
+node [shape=record];
+fontname="Roboto Mono"
+subgraph cluster1 {
+color=orange
+label="main.cpp:45 main()"
+test_int_1 [color=darkgreen, label="{name='test_int_1'|value=5|address=0x7ffd2486f970}"]
+test_int_2 [color=darkgreen, label="{name='test_int_2'|value=6|address=0x7ffd2486f980}"]
+subgraph cluster2 {
+color=orange
+label="main.cpp:30 SwapInts()"
+tmp0 [color=red, label="{name='tmp0'|value=5|address=0x7ffd2486f8e0}"]
+u_op1 [color=blue, shape=circle, label="-"]
+test_int_2 -> u_op1 [color=blue, label="", fontcolor=""]
+u_op1 -> tmp0 [color=blue, label="", fontcolor=""]
+tmp1 [color=red, label="{name='tmp1'|value=5|address=0x7ffd2486f920}"]
+tmp0 -> tmp1 [color=darkgreen, label="MOVE", fontcolor="darkgreen"]
+tmp1 -> test_int_2 [color=darkgreen, label="MOVE", fontcolor="darkgreen"]
+}
+}
+subgraph caption {
+label="..."
+COPIES [label="COPY_COUNT=0"]
+}
+}

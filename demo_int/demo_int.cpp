@@ -25,6 +25,8 @@ DemoInt::~DemoInt()
 	m_name = nullptr;
 }
 
+#ifdef ALLOW_COPY_SEMANTICS
+
 DemoInt::DemoInt(const DemoInt& other, const char* name)
 {
 	m_value = other.value();
@@ -39,6 +41,7 @@ DemoInt::DemoInt(const DemoInt& other, const char* name)
 	}
 
 	Graphviz_CreateOrientedEdge(other, *this, "red", "COPY", "red");
+	Graphviz_IncreaseCopyCount();
 }
 
 DemoInt& DemoInt::operator=(const DemoInt& other)
@@ -52,8 +55,14 @@ DemoInt& DemoInt::operator=(const DemoInt& other)
 	m_operations_left = other.op_left();
 
 	Graphviz_CreateOrientedEdge(other, *this, "red", "COPY", "red");
+	Graphviz_IncreaseCopyCount();
+
 	return *this;
 }
+
+#endif /* ALLOW_COPY_SEMANTICS */
+
+#ifdef ALLOW_MOVE_SEMANTICS
 
 DemoInt::DemoInt(DemoInt&& other, const char* name)
 {
@@ -84,6 +93,8 @@ DemoInt& DemoInt::operator=(DemoInt&& other)
 	Graphviz_CreateOrientedEdge(other, *this, "darkgreen", "MOVE", "darkgreen");
 	return *this;
 }
+
+#endif /* ALLOW_MOVE_SEMANTICS */
 
 #define UNARY_OPERATOR(op)                                               \
 DemoInt& DemoInt::operator op(const DemoInt& other)                      \
@@ -154,20 +165,34 @@ DemoInt DemoInt::operator--(int)
 	return temp;
 }
 
+DemoInt operator~(const DemoInt& num)
+{
+	DemoInt temp(~num.value());
+	Graphviz_CreateUnaryOperationNode(num, temp, "~");
+
+	return temp;
+}
+
 DemoInt operator-(const DemoInt& num)
 {
-	return DemoInt(-num.value());
+	DemoInt temp(-num.value());
+	Graphviz_CreateUnaryOperationNode(num, temp, "-");
+
+	return temp;
 }
 
 DemoInt operator+(const DemoInt& num)
 {
-	return DemoInt(num.value());
+	DemoInt temp(+num.value());
+	Graphviz_CreateUnaryOperationNode(num, temp, "+");
+
+	return temp;
 }
 
 #define BINARY_OPERATOR(op)                                              \
 DemoInt operator op(const DemoInt& first, const DemoInt& second)         \
 {                                                                        \
-	DemoInt temp = (first.value() op second.value());                    \
+	DemoInt temp(first.value() op second.value());                       \
 	Graphviz_CreateOperationNode(first, second, temp, #op);              \
                                                                          \
 	return temp;                                                         \
@@ -185,11 +210,6 @@ BINARY_OPERATOR(<<)
 BINARY_OPERATOR(>>)
 
 #undef BINARY_OPERATOR
-
-DemoInt operator~(const DemoInt& num)
-{
-	return DemoInt(~num.value());
-}
 
 bool operator<(const DemoInt& first, const DemoInt& second)
 {
