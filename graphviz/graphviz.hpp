@@ -18,7 +18,7 @@ void Graphviz_IncreaseCopyCount();
 void Graphviz_StartFunction(Location_t location);
 void Graphviz_EndFunction();
 
-void Graphviz_CreateNode(const DemoInt* num, const char* color = "black");
+void Graphviz_CreateNode(const DemoInt* num, const char* color, const char* fillcolor);
 
 void Graphviz_CreateUnorientedEdge    (const DemoInt& num, const char* operation, const char* color);
 int  Graphviz_CreateUnaryOperationNode(const DemoInt& operand, const DemoInt& result, const char* operation);

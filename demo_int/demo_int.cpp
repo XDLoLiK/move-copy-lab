@@ -10,10 +10,10 @@ DemoInt::DemoInt(int val, const char* name):
 {
 	if (name == nullptr) {
 		m_name = strdup(("tmp" + std::to_string(m_tmp_count++)).c_str());
-		Graphviz_CreateNode(this, "red");
+		Graphviz_CreateNode(this, "red", "ffe0e0");
 	} else {
 		m_name = strdup(name);
-		Graphviz_CreateNode(this, "darkgreen");
+		Graphviz_CreateNode(this, "darkgreen", "e0ffe0");
 	}
 }
 
@@ -34,10 +34,10 @@ DemoInt::DemoInt(const DemoInt& other, const char* name)
 
 	if (name == nullptr) {
 		m_name = strdup(("tmp" + std::to_string(m_tmp_count++)).c_str());
-		Graphviz_CreateNode(this, "red");
+		Graphviz_CreateNode(this, "red", "ffe0e0");
 	} else {
 		m_name = strdup(name);
-		Graphviz_CreateNode(this, "darkgreen");
+		Graphviz_CreateNode(this, "darkgreen", "e0ffe0");
 	}
 
 	Graphviz_CreateOrientedEdge(other, *this, "red", "COPY", "red");
@@ -71,10 +71,10 @@ DemoInt::DemoInt(DemoInt&& other, const char* name)
 
 	if (name == nullptr) {
 		m_name = strdup(("tmp" + std::to_string(m_tmp_count++)).c_str());
-		Graphviz_CreateNode(this, "red");
+		Graphviz_CreateNode(this, "red", "ffe0e0");
 	} else {
 		m_name = strdup(name);
-		Graphviz_CreateNode(this, "darkgreen");
+		Graphviz_CreateNode(this, "darkgreen", "e0ffe0");
 	}
 
 	Graphviz_CreateOrientedEdge(other, *this, "darkgreen", "MOVE", "darkgreen");

@@ -66,7 +66,9 @@ void Graphviz_StartFunction(Location_t location)
 	cluster_count++;
 
 	fprintf(Graphviz_OUT_FILE, "subgraph cluster%d {\n"
-		                       "color=orange\n"
+		                       "color=black\n"
+		                       "style=filled\n"
+		                       "fillcolor=\"#00000010\"\n"
 		                       "label=\"%s:%d %s()\"\n",
 		                       cluster_count, location.file, location.line, location.func);
 }
@@ -81,7 +83,7 @@ int Graphviz_CreateUnaryOperationNode(const DemoInt& operand, const DemoInt& res
 	static int u_operation_count = 0;
 	u_operation_count++;
 
-	fprintf(Graphviz_OUT_FILE, "u_op%d [color=blue, shape=circle, label=\"%s\"]\n",
+	fprintf(Graphviz_OUT_FILE, "u_op%d [color=blue, fillcolor=\"#a6eaff\", style=filled, shape=circle, label=\"%s\"]\n",
 		    u_operation_count, operation);
 
 	Graphviz_CreateOrientedEdge(operand,  ("u_op" + std::to_string(u_operation_count)).c_str(), "blue");
@@ -96,7 +98,7 @@ int Graphviz_CreateOperationNode(const DemoInt& first, const DemoInt& second, co
 	static int operation_count = 0;
 	operation_count++;
 
-	fprintf(Graphviz_OUT_FILE, "op%d [color=blue, shape=circle, label=\"%s\"]\n",
+	fprintf(Graphviz_OUT_FILE, "op%d [color=blue, fillcolor=\"#a6eaff\" , style=filled, shape=circle, label=\"%s\"]\n",
 		    operation_count, operation);
 
 	Graphviz_CreateOrientedEdge(first,  ("op" + std::to_string(operation_count)).c_str(), "blue");
@@ -106,10 +108,11 @@ int Graphviz_CreateOperationNode(const DemoInt& first, const DemoInt& second, co
 	return operation_count;
 }
 
-void Graphviz_CreateNode(const DemoInt* num, const char* color)
+void Graphviz_CreateNode(const DemoInt* num, const char* color, const char* fillcolor)
 {
-	fprintf(Graphviz_OUT_FILE, "%s [color=%s, label=\"{name=\'%s\'|value=%d|address=%p}\"]\n", 
-		    num->name(), color, num->name(), num->value(), num);
+	fprintf(Graphviz_OUT_FILE, "%s [color=%s, fillcolor=\"#%s\", style=filled,"
+		                       "label=\"{name=\'%s\'|value=%d|address=%p}\"]\n", 
+		                       num->name(), color, fillcolor, num->name(), num->value(), num);
 }
 
 void Graphviz_CreateOrientedEdge(const DemoInt& from, const DemoInt& to, const char* color,
