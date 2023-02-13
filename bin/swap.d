@@ -1,4 +1,4 @@
-bin/main.o: main.cpp /usr/include/stdc-predef.h tests/swap.hpp \
+bin/swap.o: tests/swap.cpp /usr/include/stdc-predef.h tests/swap.hpp \
  demo_int/demo_int.hpp /usr/include/c++/11/iostream \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \

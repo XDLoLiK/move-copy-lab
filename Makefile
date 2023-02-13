@@ -1,4 +1,4 @@
-SRC_DIRS := . demo_int graphviz
+SRC_DIRS := . demo_int graphviz tests
 VPATH += $(SRC_DIRS)
 
 INC_DIRS := include

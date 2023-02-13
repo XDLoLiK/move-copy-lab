@@ -1,5 +1,5 @@
-bin/main.o: main.cpp /usr/include/stdc-predef.h tests/swap.hpp \
- demo_int/demo_int.hpp /usr/include/c++/11/iostream \
+bin/bubble_sort.o: tests/bubble_sort.cpp /usr/include/stdc-predef.h \
+ tests/bubble_sort.hpp demo_int/demo_int.hpp /usr/include/c++/11/iostream \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
