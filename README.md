@@ -21,6 +21,8 @@ perform Deep copy, we need to explicitly define the copy constructor and assign
 dynamic memory as well, if required. Also, it is required to dynamically allocate
 ~memory to the variables in the other constructors, as well.
 
+![Shallow Copy Vs. Deep Copy](https://docs.oracle.com/cd/E19205-01/819-3701/images/image2.gif)
+
 ## Move Semantics
 C++ move constructors use so-called rvalue references. Rvalue references
 are basically references to the objects which are soon to be destroyed.
