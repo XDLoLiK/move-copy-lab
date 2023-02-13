@@ -25,7 +25,7 @@ DemoInt::~DemoInt()
 	m_name = nullptr;
 }
 
-#ifdef ALLOW_COPY_SEMANTICS
+#if (ALLOW_COPY_SEMANTICS == 1)
 
 DemoInt::DemoInt(const DemoInt& other, const char* name)
 {
@@ -62,7 +62,7 @@ DemoInt& DemoInt::operator=(const DemoInt& other)
 
 #endif /* ALLOW_COPY_SEMANTICS */
 
-#ifdef ALLOW_MOVE_SEMANTICS
+#if (ALLOW_MOVE_SEMANTICS == 1)
 
 DemoInt::DemoInt(DemoInt&& other, const char* name)
 {
@@ -254,4 +254,9 @@ int DemoInt::value() const
 const char* DemoInt::name() const
 {
 	return m_name;
+}
+
+int DemoInt::tmp_count()
+{
+	return m_tmp_count;
 }

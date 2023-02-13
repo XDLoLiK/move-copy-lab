@@ -6,55 +6,25 @@ color=black
 style=filled
 fillcolor="#00000010"
 label="main.cpp:14 main()"
-test_int_1 [color=darkgreen, fillcolor="#e0ffe0", style=filled,label="{name='test_int_1'|value=5|address=0x7ffc86908230}"]
-test_int_2 [color=darkgreen, fillcolor="#e0ffe0", style=filled,label="{name='test_int_2'|value=6|address=0x7ffc86908240}"]
-tmp0 [color=red, fillcolor="#ffe0e0", style=filled,label="{name='tmp0'|value=6|address=0x7ffc86908260}"]
-test_int_2 -> tmp0 [color=red, label="COPY", fontcolor="red"]
-tmp1 [color=red, fillcolor="#ffe0e0", style=filled,label="{name='tmp1'|value=5|address=0x7ffc86908250}"]
-test_int_1 -> tmp1 [color=red, label="COPY", fontcolor="red"]
+test_int_1 [color=darkgreen, fillcolor="#e0ffe0", style=filled,label="{name='test_int_1'|value=5|address=0x7fffbb5fceb0}"]
+test_int_2 [color=darkgreen, fillcolor="#e0ffe0", style=filled,label="{name='test_int_2'|value=6|address=0x7fffbb5fcec0}"]
 subgraph cluster2 {
 color=black
 style=filled
 fillcolor="#00000010"
-label="tests/swap.cpp:7 SwapInts()"
-tmp2 [color=red, fillcolor="#ffe0e0", style=filled,label="{name='tmp2'|value=11|address=0x7ffc86908180}"]
-op1 [color=blue, fillcolor="#a6eaff" , style=filled, shape=circle, label="+"]
-tmp1 -> op1 [color=blue, label="", fontcolor=""]
-tmp0 -> op1 [color=blue, label="", fontcolor=""]
-op1 -> tmp2 [color=blue, label="", fontcolor=""]
-tmp3 [color=red, fillcolor="#ffe0e0", style=filled,label="{name='tmp3'|value=11|address=0x7ffc869081e0}"]
-tmp2 -> tmp3 [color=darkgreen, label="MOVE", fontcolor="darkgreen"]
-tmp3 -> tmp1 [color=darkgreen, label="MOVE", fontcolor="darkgreen"]
-tmp4 [color=red, fillcolor="#ffe0e0", style=filled,label="{name='tmp4'|value=-5|address=0x7ffc86908180}"]
-op2 [color=blue, fillcolor="#a6eaff" , style=filled, shape=circle, label="-"]
-tmp0 -> op2 [color=blue, label="", fontcolor=""]
-tmp1 -> op2 [color=blue, label="", fontcolor=""]
-op2 -> tmp4 [color=blue, label="", fontcolor=""]
-tmp5 [color=red, fillcolor="#ffe0e0", style=filled,label="{name='tmp5'|value=-5|address=0x7ffc869081d0}"]
-tmp4 -> tmp5 [color=darkgreen, label="MOVE", fontcolor="darkgreen"]
-tmp6 [color=red, fillcolor="#ffe0e0", style=filled,label="{name='tmp6'|value=5|address=0x7ffc86908180}"]
-u_op1 [color=blue, fillcolor="#a6eaff", style=filled, shape=circle, label="-"]
-tmp5 -> u_op1 [color=blue, label="", fontcolor=""]
-u_op1 -> tmp6 [color=blue, label="", fontcolor=""]
-tmp7 [color=red, fillcolor="#ffe0e0", style=filled,label="{name='tmp7'|value=5|address=0x7ffc869081e0}"]
-tmp6 -> tmp7 [color=darkgreen, label="MOVE", fontcolor="darkgreen"]
-tmp7 -> tmp0 [color=darkgreen, label="MOVE", fontcolor="darkgreen"]
-tmp8 [color=red, fillcolor="#ffe0e0", style=filled,label="{name='tmp8'|value=6|address=0x7ffc86908180}"]
-op3 [color=blue, fillcolor="#a6eaff" , style=filled, shape=circle, label="-"]
-tmp1 -> op3 [color=blue, label="", fontcolor=""]
-tmp0 -> op3 [color=blue, label="", fontcolor=""]
-op3 -> tmp8 [color=blue, label="", fontcolor=""]
-tmp9 [color=red, fillcolor="#ffe0e0", style=filled,label="{name='tmp9'|value=6|address=0x7ffc869081e0}"]
-tmp8 -> tmp9 [color=darkgreen, label="MOVE", fontcolor="darkgreen"]
-tmp9 -> tmp1 [color=darkgreen, label="MOVE", fontcolor="darkgreen"]
+label="tests/swap.cpp:35 SwapInts()"
+tmp0 [color=red, fillcolor="#ffe0e0", style=filled,label="{name='tmp0'|value=5|address=0x7fffbb5fce20}"]
+u_op1 [color=blue, fillcolor="#a6eaff", style=filled,shape=circle, label="-"]
+test_int_2 -> u_op1 [color=blue, label="", fontcolor=""]
+u_op1 -> tmp0 [color=blue, label="", fontcolor=""]
+tmp1 [color=red, fillcolor="#ffe0e0", style=filled,label="{name='tmp1'|value=5|address=0x7fffbb5fce60}"]
+tmp0 -> tmp1 [color=darkgreen, label="MOVE", fontcolor="darkgreen"]
+tmp1 -> test_int_2 [color=darkgreen, label="MOVE", fontcolor="darkgreen"]
 }
-tmp10 [color=red, fillcolor="#ffe0e0", style=filled,label="{name='tmp10'|value=6|address=0x7ffc86908290}"]
-tmp1 -> tmp10 [color=red, label="COPY", fontcolor="red"]
-tmp11 [color=red, fillcolor="#ffe0e0", style=filled,label="{name='tmp11'|value=5|address=0x7ffc869082a0}"]
-tmp0 -> tmp11 [color=red, label="COPY", fontcolor="red"]
 }
-subgraph caption {
+subgraph caption1 {
 label="..."
-COPIES [label="COPY_COUNT=4"]
+COPIES [label="COPY_COUNT=0"]
+TMPS [label="TMP_COUNT=2"]
 }
 }

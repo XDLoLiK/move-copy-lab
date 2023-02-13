@@ -34,11 +34,12 @@ int Graphviz_Quit()
 		return 1;
 	}
 
-	fprintf(Graphviz_OUT_FILE, "subgraph caption {\n"
+	fprintf(Graphviz_OUT_FILE, "subgraph caption1 {\n"
 		                       "label=\"...\"\n"
 		                       "COPIES [label=\"COPY_COUNT=%d\"]\n"
+		                       "TMPS [label=\"TMP_COUNT=%d\"]\n"
 		                       "}\n",
-		                       Graphviz_GetCopyCount());
+		                       Graphviz_GetCopyCount(), DemoInt::tmp_count());
 
 	fprintf(Graphviz_OUT_FILE, "}\n");
 	fclose(Graphviz_OUT_FILE);
@@ -83,8 +84,9 @@ int Graphviz_CreateUnaryOperationNode(const DemoInt& operand, const DemoInt& res
 	static int u_operation_count = 0;
 	u_operation_count++;
 
-	fprintf(Graphviz_OUT_FILE, "u_op%d [color=blue, fillcolor=\"#a6eaff\", style=filled, shape=circle, label=\"%s\"]\n",
-		    u_operation_count, operation);
+	fprintf(Graphviz_OUT_FILE, "u_op%d [color=blue, fillcolor=\"#a6eaff\", style=filled,"
+		                       "shape=circle, label=\"%s\"]\n",
+		                       u_operation_count, operation);
 
 	Graphviz_CreateOrientedEdge(operand,  ("u_op" + std::to_string(u_operation_count)).c_str(), "blue");
 	Graphviz_CreateOrientedEdge(("u_op" + std::to_string(u_operation_count)).c_str(), result, "blue");
@@ -98,8 +100,9 @@ int Graphviz_CreateOperationNode(const DemoInt& first, const DemoInt& second, co
 	static int operation_count = 0;
 	operation_count++;
 
-	fprintf(Graphviz_OUT_FILE, "op%d [color=blue, fillcolor=\"#a6eaff\" , style=filled, shape=circle, label=\"%s\"]\n",
-		    operation_count, operation);
+	fprintf(Graphviz_OUT_FILE, "op%d [color=blue, fillcolor=\"#a6eaff\" , style=filled,"
+		                       "shape=circle, label=\"%s\"]\n",
+		                       operation_count, operation);
 
 	Graphviz_CreateOrientedEdge(first,  ("op" + std::to_string(operation_count)).c_str(), "blue");
 	Graphviz_CreateOrientedEdge(second, ("op" + std::to_string(operation_count)).c_str(), "blue");

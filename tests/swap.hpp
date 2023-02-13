@@ -4,7 +4,7 @@
 #include "demo_int.hpp"
 #include "graphviz.hpp"	
 
-#define TEST_LEVEL 0
+#define TEST_LEVEL 2
 
 #if (TEST_LEVEL == 0)
 	std::pair<DemoInt, DemoInt> SwapInts(DemoInt int1, DemoInt int2);

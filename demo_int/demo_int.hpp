@@ -20,13 +20,13 @@ public:
 	DemoInt(int val = 0, const char* name = nullptr);
 	~DemoInt();
 
-#ifdef ALLOW_COPY_SEMANTICS
+#if (ALLOW_COPY_SEMANTICS == 1)
 	/* Copying */
 	DemoInt(const DemoInt& other, const char* name = nullptr);
 	DemoInt& operator=(const DemoInt& other);
 #endif /* ALLOW_COPY_SEMANTICS */
 
-#ifdef ALLOW_MOVE_SEMANTICS
+#if (ALLOW_MOVE_SEMANTICS == 1)
 	/* Moving */
 	DemoInt(DemoInt&& other, const char* name = nullptr);
 	DemoInt& operator=(DemoInt&& other);
@@ -53,6 +53,7 @@ public:
     int op_left() const;
     int value() const;
     const char* name() const;
+    static int tmp_count();
 
 private:
 	static int m_tmp_count;
