@@ -9,6 +9,8 @@
 #define ALLOW_COPY_SEMANTICS 1
 #define ALLOW_MOVE_SEMANTICS 1
 
+#define DEMO_INT_NO_DUMP 1
+
 #define DEMO_INT(name, value) DemoInt name(value, #name)
 #define NEW_DEMO_INT(name, value) DemoInt* name = new DemoInt(value, #name)
 

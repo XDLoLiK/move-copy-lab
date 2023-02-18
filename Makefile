@@ -1,4 +1,4 @@
-SRC_DIRS := . demo_int graphviz tests
+SRC_DIRS := . demo_int graphviz tests stdlike
 VPATH += $(SRC_DIRS)
 
 INC_DIRS := include
@@ -52,6 +52,7 @@ prepare:
 clean:
 	@rm -rf $(BIN_DIR)
 	@rm -rf $(BUILD_DIR)
+	@rm *.dot *.png
 
 info:
 	@echo [*] OBJ: $(OBJ)

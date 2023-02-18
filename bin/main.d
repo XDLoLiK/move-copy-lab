@@ -1,5 +1,6 @@
-bin/main.o: main.cpp /usr/include/stdc-predef.h tests/swap.hpp \
- demo_int/demo_int.hpp /usr/include/c++/11/iostream \
+bin/main.o: main.cpp /usr/include/stdc-predef.h \
+ tests/move_semantics_test.hpp demo_int/demo_int.hpp \
+ /usr/include/c++/11/iostream \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -156,4 +157,12 @@ bin/main.o: main.cpp /usr/include/stdc-predef.h tests/swap.hpp \
  /usr/include/c++/11/bits/ostream.tcc /usr/include/c++/11/istream \
  /usr/include/c++/11/bits/istream.tcc /usr/include/c++/11/cstring \
  /usr/include/string.h /usr/include/strings.h graphviz/graphviz.hpp \
- graphviz/location.hpp
+ graphviz/location.hpp tests/std_move_test.hpp /usr/include/c++/11/vector \
+ /usr/include/c++/11/bits/stl_uninitialized.h \
+ /usr/include/c++/11/bits/stl_vector.h \
+ /usr/include/c++/11/bits/stl_bvector.h \
+ /usr/include/c++/11/bits/vector.tcc stdlike/move.hpp \
+ stdlike/remove_reference.hpp stdlike/forward.hpp \
+ tests/std_forward_test.hpp /usr/include/c++/11/chrono \
+ /usr/include/c++/11/ratio /usr/include/c++/11/limits \
+ /usr/include/c++/11/ctime /usr/include/c++/11/bits/parse_numbers.h

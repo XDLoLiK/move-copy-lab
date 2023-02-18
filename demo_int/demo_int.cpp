@@ -56,7 +56,6 @@ DemoInt& DemoInt::operator=(const DemoInt& other)
 
 	Graphviz_CreateOrientedEdge(other, *this, "red", "COPY", "red");
 	Graphviz_IncreaseCopyCount();
-
 	return *this;
 }
 

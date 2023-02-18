@@ -1,11 +1,6 @@
-#include "swap.hpp"
-
-/*
- * move
- * forward
- * show cases where move can't be used (3 examples, 2 counter-examples)
- * show cases where forward can't be used (3 examples, 2 counter-examples)
- */
+#include "move_semantics_test.hpp"
+#include "std_move_test.hpp"
+#include "std_forward_test.hpp"
 
 int main()
 {
@@ -13,14 +8,9 @@ int main()
 	Graphviz_Init();
 	Graphviz_StartFunction(__LOCATION__);
 
-	DEMO_INT(test_int_1, 5);
-	DEMO_INT(test_int_2, 6);
-
-#if (TEST_LEVEL == 0)
-	std::pair<DemoInt, DemoInt> swapped = SwapInts(test_int_1, test_int_2);
-#else
-	SwapInts(test_int_1, test_int_2);
-#endif
+	MoveSemanticsTest();
+	StdMoveTest();
+	StdForwardTest();
 
 	Graphviz_EndFunction();
 	Graphviz_Quit();

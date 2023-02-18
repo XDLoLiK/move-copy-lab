@@ -1,4 +1,5 @@
-bin/swap.o: tests/swap.cpp /usr/include/stdc-predef.h tests/swap.hpp \
+bin/move_semantics_test.o: tests/move_semantics_test.cpp \
+ /usr/include/stdc-predef.h tests/move_semantics_test.hpp \
  demo_int/demo_int.hpp /usr/include/c++/11/iostream \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \

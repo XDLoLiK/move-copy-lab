@@ -1,8 +1,8 @@
-#include "swap.hpp"
+#include "move_semantics_test.hpp"
 
 #if (TEST_LEVEL == 0)
 
-std::pair<DemoInt, DemoInt> SwapInts(DemoInt int1, DemoInt int2)
+static std::pair<DemoInt, DemoInt> SwapInts(DemoInt int1, DemoInt int2)
 {
 	Graphviz_StartFunction(__LOCATION__);
 
@@ -17,7 +17,7 @@ std::pair<DemoInt, DemoInt> SwapInts(DemoInt int1, DemoInt int2)
 
 #elif (TEST_LEVEL == 1)
 
-void SwapInts(DemoInt& int1, DemoInt& int2)
+static void SwapInts(DemoInt& int1, DemoInt& int2)
 {
 	Graphviz_StartFunction(__LOCATION__);
 
@@ -30,7 +30,7 @@ void SwapInts(DemoInt& int1, DemoInt& int2)
 
 #elif (TEST_LEVEL == 2)
 
-void SwapInts(DemoInt& int1, DemoInt& int2)
+static void SwapInts(DemoInt& int1, DemoInt& int2)
 {
 	Graphviz_StartFunction(__LOCATION__);
 
@@ -40,6 +40,17 @@ void SwapInts(DemoInt& int1, DemoInt& int2)
 	int1 -= int2;
 
 	Graphviz_EndFunction();
+}
+
+void MoveSemanticsTest() {
+	DEMO_INT(test_int_1, 5);
+	DEMO_INT(test_int_2, 6);
+
+#if (TEST_LEVEL == 0)
+	std::pair<DemoInt, DemoInt> swapped = SwapInts(test_int_1, test_int_2);
+#else
+	SwapInts(test_int_1, test_int_2);
+#endif
 }
 
 #endif
