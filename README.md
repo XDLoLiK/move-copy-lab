@@ -81,7 +81,7 @@ the source object in this manner, because the client has no way of inspecting th
 
 # Move/Forward
 
-In the course of our previous conversation about move and copy semantics, let's consider the
+In the course of our previous conversation let's consider the
 following example:
 
 ```
