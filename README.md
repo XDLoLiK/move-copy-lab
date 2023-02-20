@@ -26,10 +26,10 @@ dynamic memory as well, if required. Also, it is required to dynamically allocat
 ## Move Semantics
 C++ move constructors use so-called rvalue references. Rvalue references
 are basically references to the objects which are soon to be destroyed.
-These temporary objects are never to be used by the user, thus they
+These temporary objects are never to be used by the user again, thus they
 can serve us as a trash can where we store all the useless data.
 In move constructors we can always use shallow copying. That is why
-move constructors are usually a better choice when talking about speed.
+move constructors are usually a better choice when talking about perfomance.
 
 ## Note
 I am not going to take T(T&) and T(const T&&) into account as they
@@ -73,8 +73,89 @@ operations instead of arithmetics.
 
 Great job! At the end we geet zero copies and a couple of temporary objects.
 
-## Conclusion
+## Result
 To summarize, the copy constructor makes a deep copy, because the source
 must remain untouched. The move constructor, on the other hand, can just copy
 the pointer and then set the pointer in the source to null. It is okay to "nullify"
 the source object in this manner, because the client has no way of inspecting the object again.
+
+# Move/Forward
+
+In the course of our previous conversation about move and copy semantics, let's consider the
+following example:
+
+```
+void foo() {
+    <...>
+    std::vector<int> temp(1000);
+    Fill(temp);
+    Storage storage;
+    storage->Write(temp);
+    <...>
+}
+
+void Storage::Write(std::vector&& temp) {
+    <...>
+}
+
+void Storage::Write(std::vector& temp) {
+    <...>
+}
+
+```
+
+As we can see, there are two version of the same method Storage::Write.
+One accepts rvalue reference, and the other - lvalue reference. In this particular
+case it would be preferable to use the first form of the function because it would
+simply make a shallow copy of the temporary vector object. In order to achieve it
+we need to commit a cast like so:
+
+```
+void foo() {
+    <...>
+    std::vector<int> temp(1000);
+    Fill(temp);
+    Storage storage;
+    storage->Write(static_cast<std::vector<int>&&>(temp));
+    <...>
+}
+```
+
+But isn't it too clumsy and inconvinient to always type 'static_cast<...>'.
+And this is the reason for std::move() function to appear. std::move() is
+destined to convert evrything into rvalue refernce. This is how aforementioned
+example would look with the use of std::move():
+
+```
+void foo() {
+    <...>
+    std::vector<int> temp(1000);
+    Fill(temp);
+    Storage storage;
+    storage->Write(std::move(temp));
+    <...>
+}
+```
+
+Much better, isn't it? But we can't always use std::move(). Sometimes we need to
+pass the information about the initial type of the variable. For instance:
+
+```
+template <typename T>
+void foo(T&& var) {
+    bar(var);
+}
+```
+
+Here for some reason we need to remain the type of 'var' for call of bar(). And this
+is where std::forward() enters in. It would simply return T& in case of arguemt of type T&. The
+same goes for T&&. See how handy it comes:
+
+```
+template <typename T>
+void foo(T&& var) {
+    bar(std::forward<T>(var));
+}
+```
+
+
