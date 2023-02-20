@@ -47,8 +47,8 @@ Let's now consider a simple algorithm of swapping two integers (DemoInts actuall
 ![Test Program](https://github.com/XDLoLiK/demo-int/blob/master/lab_data/move_disabled.png)
 
 As we can see here, with move constructors disabled we get a rather
-upleasing picture. Copy counter as well as the number of tmp
-variables reaches 11. Pretty expensive as for 4 lines of code, isn't it?
+unpleasing picture. Copy counter as well as the number of tmp
+variables surpsass 11. Pretty expensive as for 4 lines of code, isn't it?
 
 ### Allow Move Constructors
 But now take a look at what we get when we allow move semantics.
