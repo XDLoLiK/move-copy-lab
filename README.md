@@ -44,7 +44,7 @@ yours and will remain with you, I can only make a copy".
 Let's now consider a simple algorithm of swapping two integers (DemoInts actually).
 
 ### First Approach
-![Test Program](https://github.com/XDLoLiK/demo-int/blob/master/lab_data/move_disabled.png)
+![Test Program](lab_data/move_disabled.png)
 
 As we can see here, with move constructors disabled we get a rather
 unpleasing picture. Copy counter as well as the number of tmp
@@ -53,7 +53,7 @@ variables surpsass 11. Pretty expensive as for 4 lines of code, isn't it?
 ### Allow Move Constructors
 But now take a look at what we get when we allow move semantics.
 
-![Move Semantics Enabled](https://github.com/XDLoLiK/demo-int/blob/master/lab_data/move_enabled.png)
+![Move Semantics Enabled](lab_data/move_enabled.png)
 
 What we see now is a dramatic drop in amount of copies (more than twice as good!).
 Although, the amount of tmps stays on the same level.
@@ -62,14 +62,14 @@ Although, the amount of tmps stays on the same level.
 We now can improve the algorithm by passing the argument by
 reference rather than by value.
 
-![Passing Arguments By Reference](https://github.com/XDLoLiK/demo-int/blob/master/lab_data/reference_optimization.png)
+![Passing Arguments By Reference](lab_data/reference_optimization.png)
 
 What we get now is 0 copies and only 7 temporary variables. But
 there's always a roow for improvement! Let's now use direct assignment
 operations instead of arithmetics.
 
 ### Assignment Operators
-![Assignment Operation](https://github.com/XDLoLiK/demo-int/blob/master/lab_data/assignement_optimization.png)
+![Assignment Operation](lab_data/assignement_optimization.png)
 
 Great job! At the end we geet zero copies and a couple of temporary objects.
 
