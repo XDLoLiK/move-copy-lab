@@ -158,4 +158,14 @@ void foo(T&& var) {
 }
 ```
 
+## Note
 
+Note that in the previous example foo() function uses a so-called universal reference.
+It works according to the reference compression rule:
+
+```
+T& && = T&
+T&& & = T&
+T& & = T&
+T&& && = T&&
+```
