@@ -95,18 +95,18 @@ DemoInt& DemoInt::operator=(DemoInt&& other)
 
 #endif /* ALLOW_MOVE_SEMANTICS */
 
-#define UNARY_OPERATOR(op)                                               \
-DemoInt& DemoInt::operator op(const DemoInt& other)                      \
-{                                                                        \
-	if (m_operations_left <= 0) {                                        \
+#define UNARY_OPERATOR(op)                                                       \
+DemoInt& DemoInt::operator op(const DemoInt& other)                              \
+{                                                                                \
+	if (m_operations_left <= 0) {                                            \
 		printf("You have no operations left. Pay 5$ to continue.\n");    \
 		return *this;                                                    \
-	}                                                                    \
-                                                                         \
-	m_value op other.value();                                            \
-	m_operations_left--;                                                 \
-                                                                         \
-	return *this;                                                        \
+	}                                                                        \
+                                                                                 \
+	m_value op other.value();                                                \
+	m_operations_left--;                                                     \
+                                                                                 \
+	return *this;                                                            \
 }
 
 UNARY_OPERATOR(+=)
@@ -191,10 +191,10 @@ DemoInt operator+(const DemoInt& num)
 #define BINARY_OPERATOR(op)                                              \
 DemoInt operator op(const DemoInt& first, const DemoInt& second)         \
 {                                                                        \
-	DemoInt temp(first.value() op second.value());                       \
-	Graphviz_CreateOperationNode(first, second, temp, #op);              \
+	DemoInt temp(first.value() op second.value());                   \
+	Graphviz_CreateOperationNode(first, second, temp, #op);          \
                                                                          \
-	return temp;                                                         \
+	return temp;                                                     \
 }
 
 BINARY_OPERATOR(+)
