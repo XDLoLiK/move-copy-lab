@@ -179,7 +179,8 @@ the perfomance boost we get from using std::move instead of std::forward is
 ridiculous: 163ms vs 39921ms (~245 times faster).
 
 The same goes for std::forward. There is no doubt that higher perfomance is great, but who
-needs it when your programm [SIGFAULTs](https://github.com/XDLoLiK/move-copy-lab/blob/master/tests/std_move_test.cpp) anyways)
+needs it when your programm gets [Segmentation fault](https://github.com/XDLoLiK/move-copy-lab/blob/master/tests/std_move_test.cpp)
+anyways)
 
 ## Conclusion
 
