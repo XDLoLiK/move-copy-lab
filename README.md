@@ -187,6 +187,6 @@ anyways)
 To sum up, std::move ans std::forward both are useful instruments which can possibly
 make your programm better. But in hands of an unexperienced developper they can lead
 to unwanted consequences. I also recommend reading the following articles to elaborate
-further on this theme:
-https://habr.com/ru/articles/568306/
-https://bajamircea.github.io/coding/cpp/2016/04/07/move-forward.html
+further on this theme: <br>
+https://habr.com/ru/articles/568306/ <br>
+https://bajamircea.github.io/coding/cpp/2016/04/07/move-forward.html <br>
