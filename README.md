@@ -169,3 +169,20 @@ T&& & = T&
 T& & = T&
 T&& && = T&&
 ```
+
+## Examples
+
+But seeing something once in practice is always better that hearing about it
+fot a thousand times. Therefore, consider [this](https://github.com/XDLoLiK/move-copy-lab/blob/master/tests/std_forward_test.cpp)
+simple example. Of course, swapping this much of vectors is something far-fetched, but
+the perfomance boost we get from using std::move instead of std::forward is
+ridiculous: 163ms vs 39921ms (~245 times faster).
+
+The same goes for std::forward. There is no doubt that higher perfomance is great, but who
+needs it when your programm [SIGFAULTs](https://github.com/XDLoLiK/move-copy-lab/blob/master/tests/std_move_test.cpp) anyways)
+
+## Conclusion
+
+To sum up, std::move ans std::forward both are useful instruments which can possibly
+make your programm better. But in hands of an unexperienced developper they can lead
+to unwanted consequences.
