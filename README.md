@@ -5,36 +5,34 @@ When talking about copy semantics, it is better to differentiate
 between shallow copy and deep copy.
 
 ### Shallow Copy
-In shallow copy, an object is created by simply copying the data of all variables
-of the original object. This works well if none of the variables of the object are
-defined in the heap section of memory. If some variables are dynamically allocated
-memory from heap section, then the copied object variable will also reference the
-same memory location. This will create ambiguity and run-time errors, dangling pointer.
-Since both objects will reference to the same memory location, then change made by
-one will reflect those change in another object as well. Since we wanted to create
-a replica of the object, this purpose will not be filled by Shallow copy. 
+Shallow copy simply means copying the data of all variables of the original object without
+diving into its internals. This works well if none of the variables are allocated on the heap.
+If some variables are allocated dynamically, then the copied object' variable will also reference the
+same memory location. This may ambiguity and run-time errors, possibly resulting in a dangling pointer.
+Since both if the objects reference the same memory location, a change made by one of them would causes the same
+change in another object as well. So, if our task is to create a complete replica of the object, it cannot be
+acomplished with via shallow copying. 
 
 ### Deep Copy
-In Deep copy, an object is created by copying data of all variables, and it also
-allocates similar memory resources with the same value to the object. In order to
-perform Deep copy, we need to explicitly define the copy constructor and assign
-dynamic memory as well, if required. Also, it is required to dynamically allocate
-~memory to the variables in the other constructors, as well.
+In deep copying, an object is created by copying all of the variables' underlying data. It also
+means allocating similar memory resources and assigning it the same value as the original object. In order to
+perform deep copy, one would need to explicitly define the copy constructor and allocate
+heap memory as well.
 
 ![Shallow Copy Vs. Deep Copy](https://docs.oracle.com/cd/E19205-01/819-3701/images/image2.gif)
 
 ## Move Semantics
 C++ move constructors use so-called rvalue references. Rvalue references
-are basically references to the objects which are soon to be destroyed.
+are basically references to the objects that are soon to be destroyed.
 These temporary objects are never to be used by the user again, thus they
 can serve us as a trash can where we store all the useless data.
 In move constructors we can always use shallow copying. That is why
-move constructors are usually a better choice when talking about perfomance.
+move constructors are usually a better choice in regard to perfomance.
 
 ## Note
-I am not going to take T(T&) and T(const T&&) into account as they
-both don't make sense. The first one is dangerous because it can quite
-easily modify the source if it was not originally const and it takes
+I am not going to take T(T&) and T(const T&&) constuctors into an account as
+they both don't make much sense. The first one is dangerous because it allows
+the modification of the source object if it was not originally const and it takes
 precedence over the regular copy constructor. The second one is simply
 stupid. The dying object says: "I'm dying, take my pointers, I don't need
 them anymore". And the constructor answers: "No, I can’t do that, they are
@@ -74,7 +72,7 @@ operations instead of arithmetics.
 Great job! At the end we geet zero copies and a couple of temporary objects.
 
 ## Result
-To summarize, the copy constructor makes a deep copy, because the source
+To summarize, copy constructors usually make a deep copy, because the source object
 must remain untouched. The move constructor, on the other hand, can just copy
 the pointer and then set the pointer in the source to null. It is okay to "nullify"
 the source object in this manner, because the client has no way of inspecting the object again.
@@ -104,11 +102,11 @@ void Storage::Write(std::vector& temp) {
 
 ```
 
-As we can see, there are two version of the same method Storage::Write.
+As we can see, there are two versions of the same method Storage::Write.
 One accepts rvalue reference, and the other - lvalue reference. In this particular
-case it would be preferable to use the first form of the function because it would
+case it would be preferable to use the first function because it would
 simply make a shallow copy of the temporary vector object. In order to achieve it
-we need to commit a cast like so:
+we need to commit a cast as follows:
 
 ```
 void foo() {
@@ -121,8 +119,8 @@ void foo() {
 }
 ```
 
-But isn't it too clumsy and inconvinient to always type 'static_cast<...>'.
-And this is the reason for std::move() function to appear. std::move() is
+But it is too clumsy and inconvinient to always type 'static_cast<...>', isn't it?
+Right, this is the reason why std::move() function was introduced. std::move() is
 destined to convert evrything into rvalue refernce. This is how aforementioned
 example would look with the use of std::move():
 
@@ -178,7 +176,7 @@ simple example. Of course, swapping this much of vectors is something far-fetche
 the perfomance boost we get from using std::move instead of std::forward is
 ridiculous: 163ms vs 39921ms (~245 times faster).
 
-The same goes for std::forward. There is no doubt that higher perfomance is great, but who
+The same goes for std::forward. There is no doubt that a better perfomance is great, but who
 needs it when your programm gets [Segmentation fault](https://github.com/XDLoLiK/move-copy-lab/blob/master/tests/std_move_test.cpp)
 anyways)
 
